@@ -13,17 +13,36 @@
        <h1>Weather Dashboard</h1>
     </header>
     
-    <section class="searchbar">
-        <h2>Search Your City</h2>
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="City" aria-label="Username" aria-describedby="basic-addon1" id="searchcity">
-            <div class="input-group-prepend">
-                <button class="input-group-text" id="basic-addon1">submit</button>
+    <main>
+        <section class="searchbar">
+            <h2>Search Your City</h2>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="City" aria-label="Username" aria-describedby="basic-addon1">
+                <div class="input-group-prepend">
+                    <button class="input-group-text" id="basic-addon1">submit</button>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="./assets/js/script.js"></script>
+        <section class="weatherinfo">
+            <div class="current">
+                <h2>City Name (current date)</h2>
+                <p>Temp</p>
+                <p>Wind</p>
+                <p>Humidity</p>
+            </div>
+
+            <div class="fiveday">
+                <h2>5-day Forecast:</h2>
+                <div class="card">
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script src="https://kit.fontawesome.com/bf37de4bfe.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
