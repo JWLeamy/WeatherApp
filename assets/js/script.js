@@ -22,6 +22,7 @@ searchbutton.on('click', function(event){
     console.log(city)
     console.log(apicall)
 
+
 fetch(apicall)
     .then(function (response) {
         return response.json();
@@ -36,9 +37,12 @@ fetch(apicall)
         return response.json();
     })
     .then (function (data) {
+        console.log(data)
         fivedayforcast(data)
     })
+
 })
+
 
 function todaysforecast(today) {
     $(".tname").text(`${today.name}`)
@@ -55,11 +59,38 @@ function fivedayforcast(fiveday) {
         })
         .then(function (data) {
             console.log(data)
+            console.log(data.city.name)
+            fivedaycard(data)
         })
     }
 
+var cardcon = $('#card')
 function fivedaycard(info) {
-    
+
+    for (var i = 0; i < 40; i++) {
+        if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32) {
+            var blankResultCard = $('<div class="blank-result-card"></div>');
+
+            var name = $(`<h2 class=".5name">${info.city.name}</h2>`)
+            console.log(info.city.name)
+            blankResultCard.append(name)
+
+            var temp = $(`<p class=".5tempt">Temp: ${info.list[i].main.temp}°F</p>`)
+            console.log(temp)
+            blankResultCard.append(temp)
+            
+            var wind = $(`<p class=".5wind">Wind: ${info.list[i].wind.speed} MPH</p>`)
+            console.log(wind)
+            blankResultCard.append(wind)
+            
+            var humidity = $(`<p class=".5humidity"> Humidity: ${info.list[i].main.humidity} %</p>`)
+            blankResultCard.append(humidity)
+
+            cardcon.append(blankResultCard)
+
+            console.log(blankResultCard)
+        }
+    }
 }
 //temp
 //wind
