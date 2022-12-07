@@ -29,7 +29,22 @@ fetch(apicall)
     })
     .then(function (data) {
         console.log(data)
+        todaysforecast(data)
     })
+    
 })
 
+function todaysforecast(today) {
+    $(".tname").text(`${today.name}`)
+    $(".ttempt").text(`Temp: ${today.main.temp}°F`)
+    $(".twind").text(`Wind: ${today.wind.speed} MPH`)
+    $(".thumidity").text(`Humidity: ${today.main.humidity} %`)
+}
+
+function fivedayforcast(fiveday) {
+    
+}
+//temp
+//wind
+//humidity
 //variable that stores my personal API key
