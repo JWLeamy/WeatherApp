@@ -19,7 +19,6 @@ searchbutton.on('click', function(event){
     city = $('.form-control').val()
 
     var apicall = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + WeatherAPI;
-
     console.log(city)
     console.log(apicall)
 
@@ -31,7 +30,14 @@ fetch(apicall)
         console.log(data)
         todaysforecast(data)
     })
-    
+
+fetch(apicall)
+    .then(function (response) {
+        return response.json();
+    })
+    .then (function (data) {
+        fivedayforcast(data)
+    })
 })
 
 function todaysforecast(today) {
@@ -42,6 +48,17 @@ function todaysforecast(today) {
 }
 
 function fivedayforcast(fiveday) {
+    var fivedayAPI = `https://api.openweathermap.org/data/2.5/forecast?lat=${fiveday.coord.lat}&lon=${fiveday.coord.lon}&appid=${WeatherAPI}`
+    fetch(fivedayAPI)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data)
+        })
+    }
+
+function fivedaycard(info) {
     
 }
 //temp
