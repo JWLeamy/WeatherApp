@@ -11,6 +11,7 @@ header h1 {
 
 main {
     display: flex;
+    overflow-x: auto;
 }
 
 .searchbar {
@@ -27,24 +28,65 @@ main {
 
 .weatherinfo {
     margin-top: 50px;
-    margin-left: 10%;
+    margin-left: 5%;
     width: 50%;
 }
 
-.current {
+.today {
     padding: 20px;
     background-color: lightgray;
-    border: 5px solid grey;
     border-radius: 10px;
+    width: 300px;
+}
+.current {
+    padding: 20px;
+    background-color: beige;
+    border-radius: 10px;
+    width: 250px;
 }
 
 .fiveday {
-    margin: 20px;
+    margin-top: 50px;
 }
 
 .card {
     background-color: lightgray;
     height: 200px;
-    border: 5px solid grey;
     border-radius: 15px;
 }
+
+.card {
+    display: flex;
+    flex-direction: row;
+    width:fit-content;
+    height: fit-content;
+}
+
+.blank-result-card {
+    margin: 15px;
+    width: 150px;
+    height: fit-content;
+    font-size: smaller;
+    background-color: beige;
+    border-radius: 8px;
+}
+
+.name {
+    font-size: large ;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.tempt {
+    margin-left: 5px;
+}
+
+.wind {
+    margin-left: 5px;
+}
+
+.humidity {
+    margin-left: 5px;
+}
+
