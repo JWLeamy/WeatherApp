@@ -15,10 +15,13 @@ var city = ''
 
 searchbutton.on('click', function(event){
     event.preventDefault()
+    var card = $('.card')
+    var cardchild = $('.blank-result-card')
+    cardchild.remove()
     console.log($('.form-control').val())
     city = $('.form-control').val()
 
-    var apicall = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + WeatherAPI;
+    var apicall = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + WeatherAPI + '&units=imperial';
     console.log(city)
     console.log(apicall)
 
@@ -45,6 +48,7 @@ fetch(apicall)
 
 
 function todaysforecast(today) {
+    console.log(today)
     $(".tname").text(`${today.name}`)
     $(".ttempt").text(`Temp: ${today.main.temp}°F`)
     $(".twind").text(`Wind: ${today.wind.speed} MPH`)
@@ -52,7 +56,7 @@ function todaysforecast(today) {
 }
 
 function fivedayforcast(fiveday) {
-    var fivedayAPI = `https://api.openweathermap.org/data/2.5/forecast?lat=${fiveday.coord.lat}&lon=${fiveday.coord.lon}&appid=${WeatherAPI}`
+    var fivedayAPI = `https://api.openweathermap.org/data/2.5/forecast?lat=${fiveday.coord.lat}&lon=${fiveday.coord.lon}&appid=${WeatherAPI}&units=imperial`
     fetch(fivedayAPI)
         .then(function (response) {
             return response.json();
@@ -68,7 +72,7 @@ var cardcon = $('#card')
 function fivedaycard(info) {
 
     for (var i = 0; i < 40; i++) {
-        if (i == 0 || i == 8 || i == 16 || i == 24 || i == 32) {
+        if (i == 5 || i == 13 || i == 21 || i == 29 || i == 37) {
             var blankResultCard = $('<div class="blank-result-card"></div>');
 
             var name = $(`<h2 class="name">${(info.list[i].dt_txt).slice(5, 11)}</h2>`)
@@ -96,3 +100,8 @@ function fivedaycard(info) {
 //wind
 //humidity
 //variable that stores my personal API key
+
+function ftoc (degree) {
+ var final = ((degree - 273.15)*(5/9)+32)
+ return final
+}
