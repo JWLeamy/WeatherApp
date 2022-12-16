@@ -3,7 +3,7 @@ var sbar = $('.form-control')
 var searchbutton = $('#basic-addon1')
 var WeatherAPI = '599f458e6722253dc1ab98813d04b95b';
 var city = ''
-var last = $('.last')
+var search = $('.searched')
 
 //Generate All Previously Searched Citites
 Object.keys(localStorage).forEach((key) => {
@@ -11,6 +11,7 @@ Object.keys(localStorage).forEach((key) => {
         console.log(searcheditem)
         $('.searched').append(searcheditem)
    });
+
 //API Fetch, on "click", remove all previous info and retrieve the information typed within the submit box
 searchbutton.on('click', function(event){
     event.preventDefault()
@@ -38,7 +39,7 @@ searchbutton.on('click', function(event){
             else {
             console.log(data)
             setlocal(city)
-            $('.searched').append(`<h2 class='last'>${city}</h2>`)
+            $('.searched').append(`<button class='last'>${city}</button>`)
             todaysforecast(data)
             }
         })
@@ -54,11 +55,13 @@ searchbutton.on('click', function(event){
     }
 )
 
-last.on('click', function(){
+$('.searched').on('click', '.last', function(event){
+    event.preventDefault()
     var cardchild = $('.blank-result-card')
     cardchild.remove()
     console.log(this)
-    var city = this.html()
+    var city = $(this).html()
+    console.log(city)
     var apicall = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + WeatherAPI + '&units=imperial';
     console.log(city)
     console.log(apicall)
@@ -70,8 +73,6 @@ last.on('click', function(){
         })
         .then(function (data) {      
             console.log(data)
-            setlocal(city)
-            $('.searched').append(`<button class='last'>${city}</button>`)
             todaysforecast(data)
         })
 
@@ -86,11 +87,16 @@ last.on('click', function(){
     }
 )
 
+$('.clear').on('click', function(event){
+    localStorage.clear()
+    $('.last').remove() 
+})
 
 //setting searches to local storage
 function setlocal (place) {
     localStorage.setItem(place, place)
 }
+
 
 //adjust todays forecast box
 function todaysforecast(today) {

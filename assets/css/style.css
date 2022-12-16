@@ -110,3 +110,12 @@ main {
     justify-content: space-between;
     padding-top: 10px;
 }
+
+.clear {
+    margin-left: 20%;
+    height: fit-content;
+    width: fit-content;
+    font-size: x-small;
+    background-color: burlywood;
+    border-radius: 15px;
+}
