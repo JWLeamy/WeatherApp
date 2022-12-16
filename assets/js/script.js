@@ -3,10 +3,11 @@ var sbar = $('.form-control')
 var searchbutton = $('#basic-addon1')
 var WeatherAPI = '599f458e6722253dc1ab98813d04b95b';
 var city = ''
+var last = $('.last')
 
 //Generate All Previously Searched Citites
 Object.keys(localStorage).forEach((key) => {
-    var searcheditem = $(`<h2 class='last'>${key}</h2>`)
+    var searcheditem = $(`<button class='last'>${key}</button>`)
         console.log(searcheditem)
         $('.searched').append(searcheditem)
    });
@@ -30,7 +31,7 @@ searchbutton.on('click', function(event){
         .then(function (data) {
             console.log(data)
             //if the city does not exist within the API database, return error message
-            if (data.message === 'city not found') {
+            if (data.message === (('city not found') || ('nothing to geocode'))) {
                 window.alert("Please type a valid city")
             } 
             //otherwise return all info, add to local storage, and append the search to the searchlist
@@ -40,6 +41,38 @@ searchbutton.on('click', function(event){
             $('.searched').append(`<h2 class='last'>${city}</h2>`)
             todaysforecast(data)
             }
+        })
+
+    fetch(apicall)
+        .then(function (response) {
+            return response.json();
+        })
+        .then (function (data) {
+            console.log(data)
+            fivedayforcast(data)
+        })
+    }
+)
+
+last.on('click', function(){
+    var cardchild = $('.blank-result-card')
+    cardchild.remove()
+    console.log(this)
+    var city = this.html()
+    var apicall = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + WeatherAPI + '&units=imperial';
+    console.log(city)
+    console.log(apicall)
+
+
+    fetch(apicall)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {      
+            console.log(data)
+            setlocal(city)
+            $('.searched').append(`<button class='last'>${city}</button>`)
+            todaysforecast(data)
         })
 
     fetch(apicall)
@@ -85,7 +118,7 @@ function fivedayforcast(fiveday) {
 //retrieves data over the next five days for the weather at 4pm
 var cardcon = $('#card')
 function fivedaycard(info) {
-
+    $('.fivehead').html("5 Day Forecast:")
     for (var i = 0; i < 40; i++) {
         if (i == 5 || i == 13 || i == 21 || i == 29 || i == 37) {
             var blankResultCard = $('<div class="blank-result-card"></div>');
