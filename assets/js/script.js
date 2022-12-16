@@ -1,21 +1,18 @@
-//STEP BY STEP REMAINING TASKS
 
-// 1. Somehow obtain user input
-
-// 2. make varibale 'city' equal user input
-
-// 3. fetch all neccesary data in API for the user input, create different elements
-//    that store this data, and append them to main page when hitting 'submit' button.
-
-// 4. make everything look pretty with css adjustments and possible icons
 var sbar = $('.form-control')
 var searchbutton = $('#basic-addon1')
 var WeatherAPI = '599f458e6722253dc1ab98813d04b95b';
 var city = ''
 
+//Generate All Previously Searched Citites
+Object.keys(localStorage).forEach((key) => {
+    var searcheditem = $(`<h2 class='last'>${key}</h2>`)
+        console.log(searcheditem)
+        $('.searched').append(searcheditem)
+   });
+//API Fetch, on "click", remove all previous info and retrieve the information typed within the submit box
 searchbutton.on('click', function(event){
     event.preventDefault()
-    var card = $('.card')
     var cardchild = $('.blank-result-card')
     cardchild.remove()
     console.log($('.form-control').val())
@@ -26,27 +23,43 @@ searchbutton.on('click', function(event){
     console.log(apicall)
 
 
-fetch(apicall)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        console.log(data)
-        todaysforecast(data)
-    })
+    fetch(apicall)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data)
+            //if the city does not exist within the API database, return error message
+            if (data.message === 'city not found') {
+                window.alert("Please type a valid city")
+            } 
+            //otherwise return all info, add to local storage, and append the search to the searchlist
+            else {
+            console.log(data)
+            setlocal(city)
+            $('.searched').append(`<h2 class='last'>${city}</h2>`)
+            todaysforecast(data)
+            }
+        })
 
-fetch(apicall)
-    .then(function (response) {
-        return response.json();
-    })
-    .then (function (data) {
-        console.log(data)
-        fivedayforcast(data)
-    })
+    fetch(apicall)
+        .then(function (response) {
+            return response.json();
+        })
+        .then (function (data) {
+            console.log(data)
+            fivedayforcast(data)
+        })
+    }
+)
 
-})
 
+//setting searches to local storage
+function setlocal (place) {
+    localStorage.setItem(place, place)
+}
 
+//adjust todays forecast box
 function todaysforecast(today) {
     console.log(today)
     $(".tname").text(`${today.name}`)
@@ -55,6 +68,7 @@ function todaysforecast(today) {
     $(".thumidity").text(`Humidity: ${today.main.humidity} %`)
 }
 
+//adjust the 5 day forecast
 function fivedayforcast(fiveday) {
     var fivedayAPI = `https://api.openweathermap.org/data/2.5/forecast?lat=${fiveday.coord.lat}&lon=${fiveday.coord.lon}&appid=${WeatherAPI}&units=imperial`
     fetch(fivedayAPI)
@@ -68,6 +82,7 @@ function fivedayforcast(fiveday) {
         })
     }
 
+//retrieves data over the next five days for the weather at 4pm
 var cardcon = $('#card')
 function fivedaycard(info) {
 
@@ -96,10 +111,7 @@ function fivedaycard(info) {
         }
     }
 }
-//temp
-//wind
-//humidity
-//variable that stores my personal API key
+
 
 function ftoc (degree) {
  var final = ((degree - 273.15)*(5/9)+32)
