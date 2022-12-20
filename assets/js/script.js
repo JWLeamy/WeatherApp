@@ -101,7 +101,9 @@ function setlocal (place) {
 //adjust todays forecast box
 function todaysforecast(today) {
     console.log(today)
-    $(".tname").text(`${today.name}`)
+    var iconcode = today.weather[0].icon
+    var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+    $(".tname").html(`${today.name}` + `<img class='iconimg' src=${iconurl}>`)
     $(".ttempt").text(`Temp: ${today.main.temp}°F`)
     $(".twind").text(`Wind: ${today.wind.speed} MPH`)
     $(".thumidity").text(`Humidity: ${today.main.humidity} %`)
@@ -129,7 +131,10 @@ function fivedaycard(info) {
         if (i == 5 || i == 13 || i == 21 || i == 29 || i == 37) {
             var blankResultCard = $('<div class="blank-result-card"></div>');
 
-            var name = $(`<h2 class="name">${(info.list[i].dt_txt).slice(5, 11)}</h2>`)
+            var iconcode = info.list[i].weather[0].icon
+            var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+
+            var name = $(`<h2 class="name">${(info.list[i].dt_txt).slice(5, 11)}<img class='iconimg' src=${iconurl}> </h2>`)
             console.log(info.list[i].dt_text)
             blankResultCard.append(name)
 
@@ -149,10 +154,4 @@ function fivedaycard(info) {
             console.log(blankResultCard)
         }
     }
-}
-
-
-function ftoc (degree) {
- var final = ((degree - 273.15)*(5/9)+32)
- return final
 }
