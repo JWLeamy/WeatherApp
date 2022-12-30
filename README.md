@@ -1,6 +1,6 @@
 ## Description
 
-A basic weather application that provides weather conditions like as tempurature, humidity, and wind speed for any given city. 
+A basic weather application that provides weather conditions suuch as tempurature, humidity, and wind speed for any given city. 
 
 # WeatherApp
 
