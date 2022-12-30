@@ -2,6 +2,13 @@
 
 A basic weather application that provides weather conditions suuch as tempurature, humidity, and wind speed for any given city. 
 
+
+
+https://user-images.githubusercontent.com/111401066/210025805-56de6004-5bd7-49b4-bd7a-20c1674bc860.mp4
+
+
+
+
 # WeatherApp
 
 AS A traveler
