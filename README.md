@@ -28,3 +28,11 @@ WHEN I click on a city in the search history <br>
 THEN I am again presented with current and future conditions for that city
 
 
+## Technologies Used
+1. HTML - used to create and structure the given webpage
+2. CSS - used to modify the presentation and style of the given webpage
+3. Git - used to clone down the original code prior to making modifications
+4. Github - used to create this repository, modify and eventually commit each change made, and ultimately deploy the fully edited webpage
+5. Javascript - used to render weather data based off specified input
+6. Weather API - https://openweathermap.org/forecast5
+
