@@ -36,3 +36,63 @@ THEN I am again presented with current and future conditions for that city
 5. Javascript - used to render weather data based off specified input
 6. Weather API - https://openweathermap.org/forecast5
 
+## Code Snippet
+```
+//adjust todays forecast box
+function todaysforecast(today) {
+    console.log(today)
+    var iconcode = today.weather[0].icon
+    var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+    $(".tname").html(`${today.name}` + `<img class='iconimg' src=${iconurl}>`)
+    $(".ttempt").text(`Temp: ${today.main.temp}°F`)
+    $(".twind").text(`Wind: ${today.wind.speed} MPH`)
+    $(".thumidity").text(`Humidity: ${today.main.humidity} %`)
+}
+
+//adjust the 5 day forecast
+function fivedayforcast(fiveday) {
+    var fivedayAPI = `https://api.openweathermap.org/data/2.5/forecast?lat=${fiveday.coord.lat}&lon=${fiveday.coord.lon}&appid=${WeatherAPI}&units=imperial`
+    fetch(fivedayAPI)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data)
+            console.log(data.city.name)
+            fivedaycard(data)
+        })
+    }
+
+//retrieves data over the next five days for the weather at 4pm
+var cardcon = $('#card')
+function fivedaycard(info) {
+    $('.fivehead').html("5 Day Forecast:")
+    for (var i = 0; i < 40; i++) {
+        if (i == 5 || i == 13 || i == 21 || i == 29 || i == 37) {
+            var blankResultCard = $('<div class="blank-result-card"></div>');
+
+            var iconcode = info.list[i].weather[0].icon
+            var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+
+            var name = $(`<h2 class="name">${(info.list[i].dt_txt).slice(5, 11)}<img class='iconimg' src=${iconurl}> </h2>`)
+            console.log(info.list[i].dt_text)
+            blankResultCard.append(name)
+
+            var temp = $(`<p class="tempt">Temp: ${info.list[i].main.temp}°F</p>`)
+            console.log(temp)
+            blankResultCard.append(temp)
+            
+            var wind = $(`<p class="wind">Wind: ${info.list[i].wind.speed} MPH</p>`)
+            console.log(wind)
+            blankResultCard.append(wind)
+            
+            var humidity = $(`<p class="humidity"> Humidity: ${info.list[i].main.humidity} %</p>`)
+            blankResultCard.append(humidity)
+
+            cardcon.append(blankResultCard)
+
+            console.log(blankResultCard)
+        }
+    }
+}
+```
